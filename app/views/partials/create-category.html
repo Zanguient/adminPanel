@@ -1,0 +1,193 @@
+<style>
+    md-toolbar{
+        background-color: #0c4152 !important;
+    }
+    .form-group label {
+        font-size: 13px;
+        color: #666;
+        margin-top: 8px;
+    }
+    .form-group{
+        float: left;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    md-dialog{
+        width:60%;
+        min-width:600px;
+    }
+    .form-group button{
+        margin-right: 20px;
+        padding: 0 10px;
+    }
+    .form-group button span{
+        color: #FFFFFF;
+        font-size: 11px;
+    }
+    .btn-color {
+        background-color : #1fa4ce !important;
+    }
+    .btn-color:not([disabled]):hover {
+        background-color: #65ccec !important;
+    }
+    div.col-sm-1{
+        padding-top: 2px;
+    }
+    .col-sm-9 input{
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+    }
+    .responsesClass{
+        padding: 5px 10px;
+        float: left;
+        display: block;
+        border: 1px solid #999;
+        border-radius: 3px;
+        margin-right: 5px;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+</style>
+<md-dialog aria-label="Create Service"  ng-cloak ng-controller="createServiceController">
+    <form class="form-horizontal">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Create Service</h2>
+                <span flex></span>
+                <md-button aria-label="Cancel" class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <!--<h2>Add a service with Subcategories and Properties</h2>-->
+                <div class="categories">
+                    <div ng-show="error">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-5 alert alert-danger text-center" style="font-size: 14px;">
+                            <strong>Alert!</strong> Please enter valid data.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="category_name" class="col-sm-2 control-label">Category Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="category_name" placeholder="Category Name" ng-model="category.name" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="subcategories" ng-repeat="subcategories in category.subcategories track by $index">
+                    <div class="form-group">
+                        <label for="subcategory_name" class="col-sm-2 control-label">Subcategory Name - {{$index+1}}</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="subcategory_name" placeholder="Subcategory name" ng-model="subcategories.name" required>
+                        </div>
+                        <div class="col-sm-1">
+                            <a href="javascript:void(0)" ng-click="removeSubCategory($index)">
+                                <i class="fa fa-times fa-3x"title="Remove Subcategory"></i>
+                            </a>
+                        </div>
+
+                        <label class="col-sm-2 control-label">Subcategory Label</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  placeholder="Subcategory label" ng-model="subcategories.subcategory_label" required>
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subcategories.photo{{$index}}" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control" id="subcategories.photo{{$index}}" placeholder="Subcategory Photo" ng-model="subcategories.photo" ng-required="!subcategories.photo">
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-9">
+                            <img ng-src="{{subcategories.photo}}" style="height: 150px;width: 150px;" ng-if="checkIfString(subcategories.photo)">
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                    <div class="form-group" ng-repeat="subCatProperty in subcategories.properties track by $index">
+
+
+                        <label for="subcategory_property$index" class="col-sm-2 control-label text-right">Property {{$index +1}}</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="subcategory_property$index" required placeholder="Property Name" ng-model="subCatProperty.name">
+                        </div>
+                        <div class="col-sm-1">
+                            <a href="javascript:void(0)" ng-click="removeSubCatProperty($parent.$index,$index)">
+                                <i class="fa fa-times fa-3x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+
+                        <label for="subcategory_property_label$index" class="col-sm-2 control-label text-right">Property Label</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="subcategory_property_label$index" required placeholder="Property Label" ng-model="subCatProperty.property_label">
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+
+
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="subCatPropertyresponse" placeholder="Property Response" ng-model="subCatProperty.response">
+                        </div>
+                        <div class="col-sm-1" style="padding: 0px;">
+                            <md-button ng-click="addSubCatPropReponses($parent.$index,$index)" class="btn-color" style="margin: 0px;padding: 0 15px;min-width: 0px;">
+                                Add
+                            </md-button>
+                        </div>
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-9">
+                            <div ng-repeat="subCatPropReponses in subCatProperty.responses track by $index" class="responsesClass">
+                                {{subCatPropReponses}}
+                                <a href="javascript:void(0)" ng-click="removeSubCatResponse($parent.$parent.$index,$parent.$index,$index)">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-1" style="padding: 0px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-9">
+                            <md-button ng-click="addSubCategoryProperties($index)" style="margin-right:20px;" class="btn-color">
+                                Add Subcategory Properties
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-9">
+                        <md-button ng-click="addSubCategory()" style="margin-right:20px;  " class="md-raised btn-color1">
+                            Add Subcategory
+                        </md-button>
+                    </div>
+                </div>
+                <div ng-show="error">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-5 alert alert-danger text-center" style="font-size: 14px;">
+                        <strong>Alert!</strong> Please enter valid data.
+                    </div>
+                </div>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span style="font-size: 12px;">Fill the above form to add a new service</span>
+            <span flex></span>
+            <md-button ng-click="answer('Close')">
+                Close
+            </md-button>
+            <md-button type="submit" ng-click="submit(type)" style="margin-right:20px;" ng-disabled="submitButtonDisabled">
+                {{submitButtonText}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

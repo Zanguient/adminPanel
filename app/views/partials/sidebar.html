@@ -1,0 +1,90 @@
+<style>
+   .user-block{
+      padding: 5px !important;
+   }
+   .user-block .user-block-info{
+      padding: 10px;
+      font-weight: bold;
+   }
+   .nav.ng-scope{
+      padding-top: 20px;
+   }
+   ul li:hover{
+      background-color: #91dbf2;
+   }
+   ul li span{
+      font-size: 16px;
+   }
+   ul li:hover span{
+      color: #FFFFFF !important;
+   }
+   li{
+      list-style: none;
+   }
+   .default{
+      background-color: #23b7e5 !important;
+   }
+   .default span{
+      color: #FFFFFF !important;
+   }
+</style>
+<div ng-controller="DashboardSidebarController">
+<!-- Inline template with sidebar items markup and ng-directives-->
+<script type="text/ng-template" id="sidebar-renderer.html">
+   <span ng-if="item.heading">{{(item.translate | translate) || item.text}}</span><a ng-if="!item.heading" ng-href="{{$state.href(item.sref, item.params)}}" title="{{item.text}}"><em ng-hide="inSubmenu" class="{{item.icon}}"></em><div ng-if="item.alert" class="label label-success pull-right">{{item.alert}}</div><span>{{(item.translate | translate) || item.text}}</span></a><ul ng-if="item.submenu" collapse="isCollapse(pIndex)" ng-init="addCollapse(pIndex, item)" class="nav sidebar-subnav"><li class="sidebar-subnav-header">{{(item.translate | translate) || item.text}}</li><li ng-repeat="item in item.submenu" ng-include="'sidebar-renderer.html'" ng-class="getMenuItemPropClasses(item)" ng-init="pIndex=(pIndex+'-'+$index); inSubmenu = true" ng-click="toggleCollapse(pIndex)"></li></ul>
+</script>
+<!-- START Sidebar (left)-->
+<div class="aside-inner">
+   <nav sidebar="" class="sidebar">
+      <ul class="nav">
+         <li ng-click="$state.go('app.dashboard')" ng-class="{default: defaultDashboard}" data-ng-click="changeClass()">
+            <div>
+               <div class="item user-block">
+                  <div class="user-block-info">
+                     <span class="user-block-name">Dashboard</span>
+                  </div>
+               </div>
+            </div>
+         </li>
+         <li ng-click="$state.go('app.services')" ng-class="{default: defaultServices}" data-ng-click="changeClass()">
+            <div>
+               <div class="item user-block">
+                  <div class="user-block-info">
+                     <span class="user-block-name">Services</span>
+                  </div>
+               </div>
+            </div>
+         </li>
+         <li ng-click="$state.go('app.customers')" ng-class="{default: defaultCustomers}" data-ng-click="changeClass()">
+            <div>
+               <div class="item user-block">
+                  <div class="user-block-info">
+                     <span class="user-block-name">Customers</span>
+                  </div>
+               </div>
+            </div>
+         </li>
+         <li ng-click="$state.go('app.serviceproviders')" ng-class="{default: defaultServiceProviders}" data-ng-click="changeClass()">
+            <div>
+               <div class="item user-block">
+                  <div class="user-block-info">
+                     <span class="user-block-name">Service Providers</span>
+                  </div>
+               </div>
+            </div>
+         </li>
+         <li ng-click="$state.go('app.orders')" ng-class="{default: defaultOrders}" data-ng-click="changeClass()">
+            <div>
+               <div class="item user-block">
+                  <div class="user-block-info">
+                     <span class="user-block-name">Orders</span>
+                  </div>
+               </div>
+            </div>
+         </li>
+      </ul>
+      <!-- END sidebar nav-->
+   </nav>
+</div>
+<!-- END Sidebar (left)-->
+</div>

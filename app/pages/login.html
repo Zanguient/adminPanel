@@ -1,0 +1,44 @@
+<style>
+   button {
+      margin:0 !important;
+   }
+</style>
+<div ng-controller="LoginController" class="block-center mt-xl wd-xl">
+   <!-- START panel-->
+   <div class="panel panel-dark panel-flat">
+      <div class="panel-heading text-center">
+         <a href="#">
+            <img src="app/img/logo.png" alt="Image" class="block-center img-rounded" />
+         </a>
+      </div>
+      <div class="panel-body">
+           <p class="text-center pv">SIGN IN TO CONTINUE.</p>
+           <form role="form" validate-form="" novalidate="" class="mb-lg" name = "loginForm">
+              <div class="form-group has-feedback">
+                 <md-input-container class="md-block" flex-gt-sm>
+                    <label>Email </label>
+                    <input ng-model="user.email" type="email" required>
+                 </md-input-container>
+              </div>
+              <div class="form-group has-feedback">
+                 <md-input-container class="md-block" flex-gt-sm>
+                    <label>Password</label>
+                    <!--<md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>-->
+                    <input ng-model="user.password" type="password" minlength="6" required>
+                 </md-input-container>
+              </div>
+              <md-button type="submit" ng-click="submit()" class="md-raised md-primary mt-lg btn-block" ng-disabled="buttonDisable">{{buttonText}}</md-button>
+           </form>
+           <div ng-show="authMsg" class="alert alert-danger text-center">{{authMsg}}</div>
+        </div>
+   </div>
+   <!-- END panel-->
+   <div class="p-lg text-center">
+      <span>&copy;</span>
+      <span ng-bind="app.year"></span>
+      <span>-</span>
+      <span ng-bind="app.name"></span>
+      <br/>
+      <span ng-bind="app.description"></span>
+   </div>
+</div>

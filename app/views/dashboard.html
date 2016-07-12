@@ -1,0 +1,196 @@
+<style>
+   .paging_simple_numbers a{
+      padding-left: 10px;
+      cursor: pointer;
+   }
+   a.current{
+      font-weight: 900;
+      text-decoration: underline;
+   }
+   .table > thead > tr > th{
+      color: #ffffff;
+   }
+   thead tr{
+      background-color: #21608a;
+   }
+</style>
+<div ng-controller="DashboardController" id="dashboard">
+   <h3>
+      <!-- START Language list-->
+      <!--<div class="pull-right">
+         <div dropdown="" is-open="language.listIsOpen" class="btn-group">
+            <button type="button" dropdown-toggle="" class="btn btn-default">{{language.selected}}
+               <span class="caret"></span>
+            </button>
+            <ul role="menu" class="dropdown-menu dropdown-menu-right animated fadeInUpShort">
+               <li ng-repeat="(localeId, langName) in language.available"><a ng-click="language.set(localeId, $event)" href="#">{{langName}}</a>
+               </li>
+            </ul>
+         </div>
+      </div>-->
+      <!-- END Language list    -->
+      Admin Dashboard
+   </h3>
+   <!-- START widgets box-->
+   <div class="row">
+      <div class="col-lg-3 col-sm-6">
+         <!-- START widget-->
+         <div class="panel widget bg-primary">
+            <div class="row row-table">
+               <div class="col-xs-4 text-center bg-primary-dark pv-lg">
+                  <em class="fa fa-users fa-3x"></em>
+               </div>
+               <div class="col-xs-8 pv-lg">
+                  <div class="h2 mt0">{{counts.customers}}</div>
+                  <div class="text-uppercase"><b>Customers</b></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+         <!-- START widget-->
+         <div class="panel widget bg-purple">
+            <div class="row row-table">
+               <div class="col-xs-4 text-center bg-purple-dark pv-lg">
+                  <em class="fa fa-gavel fa-3x"></em>
+               </div>
+               <div class="col-xs-8 pv-lg">
+                  <div class="h2 mt0">{{counts.serviceProviders}}</div>
+                  <div class="text-uppercase"><b>Service Providers</b></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+         <!-- START widget-->
+         <div class="panel widget bg-green">
+            <div class="row row-table">
+               <div class="col-xs-4 text-center bg-green-dark pv-lg">
+                  <em class="icon-globe fa-3x"></em>
+               </div>
+               <div class="col-xs-8 pv-lg">
+                  <div class="h2 mt0">{{counts.completedOrders}}</div>
+                  <div class="text-uppercase"><b>Completed Orders</b></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+         <!-- START widget-->
+         <div class="panel widget" style="background-color:#ff8181;color: #FFFFFF;">
+            <div class="row row-table">
+               <div class="col-xs-4 text-center pv-lg" style="background-color:#FF4C4C">
+                  <em class="icon-globe fa-3x"></em>
+               </div>
+               <div class="col-xs-8 pv-lg">
+                  <div class="h2 mt0">{{counts.pendingOrders}}</div>
+                  <div class="text-uppercase"><b>Pending Orders</b></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- END widgets box-->
+   <div class="row">
+      <!-- START dashboard main content-->
+      <div class="col-lg-12">
+         <!-- START chart-->
+         <div class="row">
+            <div class="col-lg-12">
+               <!-- START widget-->
+               <div id="panelChart9" ng-controller="FlotChartController" class="panel panel-default">
+                  <div class="panel-heading">
+
+                     <div class="panel-title">Order Statistics</div>
+                  </div>
+                  <div collapse="panelChart9" class="panel-wrapper">
+                     <div class="panel-body">
+                        <flot dataset="chartOrderData" options="splineOptions" height="250px"></flot>
+                     </div>
+                  </div>
+               </div>
+               <!-- END widget-->
+            </div>
+         </div>
+         <!-- END chart-->
+         <div class="row">
+
+         </div>
+      </div>
+      <!-- END dashboard main content-->
+      <!-- START dashboard sidebar-->
+      <!--<aside class="col-lg-3">
+         &lt;!&ndash; START loader widget&ndash;&gt;
+         <div class="panel panel-default">
+            <div class="panel-body">
+               <a href="#" class="text-muted pull-right">
+                  <em class="fa fa-arrow-right"></em>
+               </a>
+               <div class="text-info">Average Monthly Uploads</div>
+               <canvas classyloader="" data-percentage="70" data-speed="20" data-font-size="40px" data-diameter="70" data-line-color="{{colorByName('info')}}" data-remaining-line-color="rgba(200,200,200,0.4)" data-line-width="10"
+               data-rounded-line="true" class="center-block"></canvas>
+               <div sparkline="" data-bar-color="{{colorByName('info')}}" data-height="30" data-bar-width="5" data-bar-spacing="2" values="5,4,8,7,8,5,4,6,5,5,9,4,6,3,4,7,5,4,7" class="text-center"></div>
+            </div>
+            <div class="panel-footer">
+               <p class="text-muted">
+                  <em class="fa fa-upload fa-fw"></em>
+                  <span>This Month</span>
+                  <span class="text-dark">1000 Gb</span>
+               </p>
+            </div>
+         </div>
+         &lt;!&ndash; END messages and activity&ndash;&gt;
+      </aside>-->
+      <!-- END dashboard sidebar-->
+   </div>
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               Jobs |
+               <small>Pending / Today's</small>
+            </div>
+            <div class="panel-body">
+               <table id="datatable"  class="table table-striped table-hover text-center">
+                  <thead>
+                  <tr>
+                     <th class="text-center">Order No.</th>
+                     <th class="text-center">Started / Completed</th>
+                     <th class="text-center">Customer</th>
+                     <th class="text-center">Estimate Price / Time</th>
+                     <th class="text-center">Service Provider</th>
+                     <th class="text-center">Payment</th>
+                     <th class="text-center">Scheduled Time</th>
+                     <th class="text-center" style="width:15% !important;">Location</th>
+                     <th class="text-center">Job</th>
+                     <th class="text-center">Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="order in orders" on-finish-render="ngRepeatFinished" ng-if="orders.length > 0">
+                     <td>{{order.unique_id}}</td>
+                     <td>
+                        <span ng-class="{'text-success':order.started,'text-danger':!order.started}">{{order.started?"Yes":"No"}}</span> / <span ng-class="{'text-success':order.completed,'text-danger':!order.completed}">{{order.completed?"Yes":"No"}}</span>
+                     </td>
+                     <td>{{order.customer_id.name}} ({{order.customer_id.countryCode + '-' + order.customer_id.phoneNo}})</td>
+                     <td>{{order.estimate_price == null?"-":order.estimate_price}} / {{order.estimate_time == null?"-":order.estimate_time}}</td>
+                     <td>
+                        <span ng-if="order.service_provider_id">{{order.service_provider_id.name}} ({{order.service_provider_id.countryCode + '-' + order.service_provider_id.phoneNo}})</span>
+                        <span ng-if="!order.service_provider_id" class="text-danger">Not Allocated Yet</span>
+                     </td>
+                     <td>{{order.payment_method | uppercase}}</td>
+                     <td>{{order.schedule_time | date : "dd/MM/yyyy HH:mm"}}</td>
+                     <td>{{order.address.location}}</td>
+                     <td>{{order.category_response[0].subcategories[0].name}}</td>
+                     <td><md-button class="md-raised btn-color1" ng-click="getOrderDetails(order._id)">Details</md-button></td>
+                  </tr>
+                  </tbody>
+               </table>
+               <!--<table id="datatable1" class="table table-striped table-hover text-center">
+
+               </table>-->
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,255 @@
+<style>
+    tr td:nth-child(1){
+        font-weight:bold;
+    }
+    .col-lg-6{
+        background-color: #fff;
+        padding: 25px 25px 0 25px;
+        box-shadow: 0 0 3px #999;
+    }
+    .heading {
+        background-color: #3c6674;
+        color: #fff;
+    }
+    .width50 {
+        width:25%;
+    }
+    footer{
+        display: none;
+    }
+</style>
+
+<div ng-controller="OrderDetailsController" class="content-wrapper ng-scope ng-fadeInUp">
+
+    <h3 class="text-center">Order Details - {{orderDetails.unique_id}}</h3><br><br>
+    <div>
+        <div class="col-lg-6">
+            <table class="table table-hover">
+                <tr>
+                    <td colspan="2" class="text-center heading"><h4>Customer</h4></td>
+                </tr>
+                <tr>
+                    <td class="width50">
+                    Order No.
+                    </td>
+                    <td>
+                        {{orderDetails.unique_id}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Customer Name
+                    </td>
+                    <td>
+                        {{orderDetails.customer_id.name}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Customer Phone Number
+                    </td>
+                    <td>
+                        {{orderDetails.customer_id.countryCode+'-'+orderDetails.customer_id.phoneNo}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Customer Email
+                    </td>
+                    <td>
+                        {{orderDetails.customer_id.email}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Service
+                    </td>
+                    <td>
+                        {{orderDetails.category_response[0].category_name +' ('+ orderDetails.category_response[0].subcategories[0].name+')'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Service Location
+                    </td>
+                    <td>
+                        {{orderDetails.address.location}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <table class="table table-hover">
+                <tr>
+                   <td colspan="2" class="text-center heading"><h4>Service Provider</h4></td>
+                </tr>
+                <tr>
+                    <td class="width50">
+                        Name
+                    </td>
+                    <td>
+                        <span ng-if="!orderDetails.service_provider_id">Not Allocated</span>
+                        <span ng-if="orderDetails.service_provider_id">{{orderDetails.service_provider_id.name}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mobile
+                    </td>
+                    <td>
+                        <span ng-if="!orderDetails.service_provider_id">-</span>
+                        <span ng-if="orderDetails.service_provider_id">{{orderDetails.service_provider_id.countryCode+'-'+orderDetails.service_provider_id.phoneNo}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Email
+                    </td>
+                    <td>
+                        <span ng-if="!orderDetails.service_provider_id">-</span>
+                        <span ng-if="orderDetails.service_provider_id">{{orderDetails.service_provider_id.email}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Photo
+                    </td>
+                    <td>
+                        <span ng-if="!orderDetails.service_provider_id">-</span>
+                        <span ng-if="orderDetails.service_provider_id"><img ng-src="{{orderDetails.service_provider_id.profilePicURL.thumbnail}}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mobile
+                    </td>
+                    <td>
+                        <span ng-if="!orderDetails.service_provider_id">-</span>
+                        <span ng-if="orderDetails.service_provider_id">{{orderDetails.service_provider_id.countryCode+'-'+orderDetails.service_provider_id.phoneNo}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Hourly rate
+                    </td>
+                    <td>
+                        <span ng-if="!orderDetails.service_provider_id">-</span>
+                        <span ng-if="orderDetails.service_provider_id">{{orderDetails.service_provider_id.hourly_rate.min}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div>
+        <div class="col-lg-6">
+            <table class="table table-hover">
+                <tr>
+                    <td colspan="2" class="text-center heading"><h4>Order Details</h4></td>
+                </tr>
+                <tr>
+                    <td class="width50">
+                        Order No.
+                    </td>
+                    <td>
+                        {{orderDetails.unique_id}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Estimate Price
+                    </td>
+                    <td>
+                        {{orderDetails.estimate_price}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Estimate Time
+                    </td>
+                    <td>
+                        {{orderDetails.estimate_time}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Actual Price
+                    </td>
+                    <td>
+                        {{orderDetails.actual_price}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Actual Time
+                    </td>
+                    <td>
+                        {{orderDetails.actual_time}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Schedule Time
+                    </td>
+                    <td>
+                        {{orderDetails.schedule_time | date: "dd/MM/yyyy HH:mm"}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <table class="table table-hover">
+                <tr>
+                    <td colspan="2" class="text-center heading"><h4>Order Status</h4></td>
+                </tr>
+                <tr>
+                    <td class="width50">
+                        Order Status
+                    </td>
+                    <td>
+                        {{orderStatus}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Feedback Note
+                    </td>
+                    <td>
+                        {{orderDetails.feedback_note}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Feedback Rating
+                    </td>
+                    <td>
+                        {{orderDetails.feedback_rating}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Instructions
+                    </td>
+                    <td>
+                        {{orderDetails.instructions}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Schedule Type
+                    </td>
+                    <td>
+                        {{orderDetails.schedule_type}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Payment Method
+                    </td>
+                    <td>
+                        {{orderDetails.payment_method}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

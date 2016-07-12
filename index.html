@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="angle">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <meta name="description" content="{{app.description}}">
+   <meta name="keywords" content="app, responsive, angular, bootstrap, dashboard, admin">
+   <title data-ng-bind="pageTitle()">Angle - Angular Bootstrap Admin Template</title>
+   <link rel="stylesheet" href="app/css/app.css" data-ng-if="!app.layout.isRTL">
+   <link rel="stylesheet" href="app/css/app-rtl.css" data-ng-if="app.layout.isRTL">
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+   <link rel="stylesheet" href="app/vendor/datatable-bootstrap/css/dataTables.bootstrap.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+   <script src="app/vendor/freewall.js"></script>
+   <style>
+      md-dialog{opacity: 1}
+      md-dialog p {font-size: 14px;}
+      md-dialog h2{
+         border-bottom: 1px solid #999;
+         margin-bottom: 35px;
+         padding-bottom: 6px;
+      }
+      .btn-color1 {
+         background-color : #0c4152 !important;
+         color: #ffffff !important;
+      }
+      .btn-color1:not([disabled]):hover {
+         background-color: #062029 !important;
+      }
+   </style>
+</head>
+
+<body data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed, 'layout-fs': app.useFullLayout, 'hidden-footer': app.hiddenFooter, 'layout-h': app.layout.horizontal, 'aside-float': app.layout.isFloat}">
+   <div data-ui-view="" data-autoscroll="false" class="wrapper"></div>
+   <script src="app/js/base.js"></script>
+   <script src="app/js/app.js"></script>
+
+   <script src="bower_components/angular-animate/angular-animate.js"></script>
+   <script src="bower_components/angular-material/angular-material.js"></script>
+   <script src="bower_components/angular-aria/angular-aria.js"></script>
+   <script src="bower_components/angular-messages/angular-messages.js"></script>
+   <script src="vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+   <script src="app/js/controllers/LoginController.js"></script>
+   <script src="app/js/controllers/DashboardController.js"></script>
+   <script src="app/js/controllers/NavigationController.js"></script>
+   <script src="app/js/controllers/createServiceController.js"></script>
+   <script src="app/js/controllers/DashboardSidebarController.js"></script>
+   <script src="app/js/controllers/ServicesController.js"></script>
+   <script src="app/js/controllers/CustomersController.js"></script>
+   <script src="app/js/controllers/ResetPasswordController.js"></script>
+   <script src="app/js/controllers/OrderDetailsController.js"></script>
+   <script src="app/js/controllers/OrdersController.js"></script>
+   <script src="app/js/controllers/ServiceProviderController.js"></script>
+   <script src="app/js/services/service.js"></script>
+
+</body>
+</html>
